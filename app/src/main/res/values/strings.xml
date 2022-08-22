@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">SmartKids</string>
+
+    <string name="image_contentDescription">image</string>
+    <string name="sign_up_welcome">Create parent account</string>
+    <string name="sign_in_welcome">I have an account</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+
+    <string name="sign_up_description_text">Enter your name, email id and password, to register with us.</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="sign_in_description_text">Please enter your email and password</string>
+    <string name="smart_kid_text">Finding Your Kid\'s Genius</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="image_content_description">image</string>
+
+    <!--Fragment_kids -->
+    <string name="no_kids_found_yet">No kids found yet!</string>
+    <string name="add">add</string>
+
+    <!--Fragment_add_kid -->
+    <string name="add_kid_text">Enter your name, choose your image, join with us!</string>
+    <string name="add_kid">Add Kid</string>
+    <string name="text_add_image">ADD IMAGE</string>
+    <string name="settings">Settings</string>
+    <string name="points">points</string>
+</resources>
