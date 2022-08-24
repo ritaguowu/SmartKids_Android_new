@@ -78,7 +78,7 @@
     </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_interesting_places_list"
+            android:id="@+id/rv_kid_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"

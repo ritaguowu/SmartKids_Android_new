@@ -2,6 +2,8 @@ package ca.smartkids.repository;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 import ca.smartkids.data.DataStoreManager;
 import ca.smartkids.model.LoginResponse;
 import ca.smartkids.model.User;
@@ -11,24 +13,23 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginRepository {
-
-    public LoginRepository(){
+public class LoadKidsRepository {
+    public LoadKidsRepository() {
     }
 
-    public void loginRemote(User user, ILoginResponse loginResponse){
+    public void loadKidInfo(String token, String parent_Id, LoadKidsRepository.ILoginResponse loginResponse) {
         APIService loginService = RetrofitClientInstance.getInstance().create(APIService.class);
-        Call<LoginResponse> initiateLogin = loginService.login(user);
+        Call<List<LoginResponse>> initiateLogin = loginService.getKidsByParentId(parent_Id, "Bearer "+token);
 
-        initiateLogin.enqueue(new Callback<LoginResponse>() {
+        initiateLogin.enqueue(new Callback<List<LoginResponse>>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<List<LoginResponse>> call, Response<List<LoginResponse>> response) {
                 if (response.isSuccessful()){
-                    loginResponse.onResponse(response.body());
-                    User user = response.body().getUser();
-                    DataStoreManager.instance.saveStringData("token", user.access_token);
-                    DataStoreManager.instance.saveStringData("parent_id", user.user_id);
-                    DataStoreManager.instance.saveStringData("email", user.email);
+//                    loginResponse.onResponse(response.body());
+//                    User user = response.body().getUser();
+//                    DataStoreManager.instance.saveStringData("token", user.access_token);
+//                    DataStoreManager.instance.saveStringData("parent_id", user.user_id);
+//                    DataStoreManager.instance.saveStringData("email", user.email);
                 }
                 else{
                     try {
@@ -42,9 +43,10 @@ public class LoginRepository {
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<List<LoginResponse>> call, Throwable t) {
                 loginResponse.onFailure(t);
             }
+
         });
     }
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import ca.smartkids.data.DataStoreManager;
 import ca.smartkids.model.LoginResponse;
 import ca.smartkids.model.User;
 import ca.smartkids.repository.LoginRepository;
@@ -23,6 +24,9 @@ public class LoginViewModel extends ViewModel {
             @Override
             public void onResponse(LoginResponse loginResponse) {
                 mLoginResultMutableData.postValue("Login Success");
+                DataStoreManager.instance.getStringValue("token", s -> {
+                    System.out.println("Test DataStore: token "+s);
+                });
             }
 
             @Override
@@ -35,4 +39,5 @@ public class LoginViewModel extends ViewModel {
     public LiveData<String> getLoginResult(){
         return mLoginResultMutableData;
     }
+
 }

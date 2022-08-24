@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import ca.smartkids.data.DataStoreManager;
 import ca.smartkids.databinding.ActivityLoginBinding;
 import ca.smartkids.viewmodel.LoginViewModel;
 
@@ -26,7 +27,9 @@ public class LoginActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
 
+        DataStoreManager.instance.init(this);
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
 
         //Make app use full screen
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
