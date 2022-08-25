@@ -41,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
             );
         }
         setupActionBar();
+
+        //Click the login button
         binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,12 +52,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        //Create the observer which updates the UI.
         loginViewModel.getLoginResult().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 binding.tvLoginResult.setText(s);
-                if (s.equals("Login Success")) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                if (s.equals("Load Kids Success")) {
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }
             }
         });

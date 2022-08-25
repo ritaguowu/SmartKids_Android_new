@@ -2,6 +2,7 @@ package ca.smartkids.retrofit;
 
 import java.util.List;
 
+import ca.smartkids.model.LoadKidsResponse;
 import ca.smartkids.model.LoginResponse;
 import ca.smartkids.model.User;
 import retrofit2.Call;
@@ -28,7 +29,7 @@ public interface APIService {
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/api/v1/kids")
-    Call<List<LoginResponse>> getKidsByParentId(@Query("parentId") String parentId, @Header("Authorization") String auth);
+    Call<LoadKidsResponse> getKidsByParentId(@Query("parentId") String parentId, @Header("Authorization") String auth);
 
     @GET("/api/v1/parent/{email}")
     Call<List<LoginResponse>> updateParent(@Path("email") String email);

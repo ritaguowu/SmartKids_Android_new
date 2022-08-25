@@ -13,6 +13,9 @@ import androidx.datastore.rxjava3.RxDataStore;
 
 import org.reactivestreams.Subscription;
 
+import java.util.List;
+
+import ca.smartkids.model.User;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.FlowableSubscriber;
 import io.reactivex.rxjava3.core.Single;
@@ -47,6 +50,7 @@ public class DataStoreManager {
                     return Single.just(mutablePreferences);
                 }).subscribe();
     }
+
 
     public void getStringValue(String keyName, StringValueDelegate stringValueDelegate){
         Preferences.Key<String> key = new Preferences.Key<>(keyName);
