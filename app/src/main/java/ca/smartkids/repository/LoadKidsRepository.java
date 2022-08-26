@@ -10,16 +10,13 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import ca.smartkids.data.DataStoreManager;
 import ca.smartkids.model.LoadKidsResponse;
-import ca.smartkids.model.LoginResponse;
 import ca.smartkids.model.User;
 import ca.smartkids.retrofit.APIService;
 import ca.smartkids.retrofit.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.internal.EverythingIsNonNull;
 
 public class LoadKidsRepository {
     public LoadKidsRepository() {

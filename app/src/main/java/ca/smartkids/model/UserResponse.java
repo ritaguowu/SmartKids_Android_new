@@ -2,11 +2,11 @@ package ca.smartkids.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LoginResponse {
+public class UserResponse {
     @SerializedName("user")
     User user;
 
-    public LoginResponse(User user) {
+    public UserResponse(User user) {
         this.user = user;
     }
 

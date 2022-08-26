@@ -42,6 +42,10 @@ public class LoginActivity extends AppCompatActivity {
         }
         setupActionBar();
 
+        //Check if the user has already has token
+//        if (checkIfAutoLogin())
+//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
         //Click the login button
         binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +67,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private boolean checkIfAutoLogin(){
+        loginViewModel.checkIfAutoLogin();
+        if (binding.tvLoginResult.getText().equals("The use has been already logged in"))
+            return true;
+        else
+            return false;
     }
 
     private void setupActionBar(){

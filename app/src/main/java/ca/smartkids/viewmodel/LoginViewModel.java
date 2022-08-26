@@ -4,12 +4,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.List;
-
 import ca.smartkids.data.DataStoreManager;
 import ca.smartkids.model.LoadKidsResponse;
-import ca.smartkids.model.LoginResponse;
+import ca.smartkids.model.UserResponse;
 import ca.smartkids.model.User;
+import ca.smartkids.repository.CheckAutoLoginRepository;
 import ca.smartkids.repository.LoadKidsRepository;
 import ca.smartkids.repository.LoginRepository;
 
@@ -19,6 +18,7 @@ public class LoginViewModel extends ViewModel {
     MutableLiveData<String> mLoginResultMutableData = new MutableLiveData<>();
     LoginRepository loginRepository;
     LoadKidsRepository loadKidsRepository;
+    CheckAutoLoginRepository checkAutoLoginRepository;
     DataStoreManager dataInstance;
     String token = "";
 
@@ -27,6 +27,7 @@ public class LoginViewModel extends ViewModel {
         mLoginResultMutableData.postValue("");
         loginRepository = new LoginRepository();
         loadKidsRepository = new LoadKidsRepository();
+        checkAutoLoginRepository = new CheckAutoLoginRepository();
         dataInstance = DataStoreManager.instance;
     }
 
@@ -34,7 +35,7 @@ public class LoginViewModel extends ViewModel {
         mLoginResultMutableData.postValue("Checking");
         loginRepository.loginRemote(new User(email, password), new LoginRepository.ILoginResponse() {
 
-            public void onResponse(LoginResponse loginResponse) {
+            public void onResponse(UserResponse userResponse) {
                 mLoginResultMutableData.postValue("Login Success");
                 dataInstance.getStringValue("token", s -> {
                     token = s;
@@ -75,4 +76,22 @@ public class LoginViewModel extends ViewModel {
         return mLoginResultMutableData;
     }
 
+    public void checkIfAutoLogin() {
+        mLoginResultMutableData.postValue("Loading user...");
+        dataInstance.getStringValue("parent_id", p -> {checkLogin(p);});
+    }
+
+    public void checkLogin(String p){
+        checkAutoLoginRepository.checkAutoLogin(token, p, new CheckAutoLoginRepository.ICheckLoginResponse() {
+            @Override
+            public void onResponse(UserResponse userResponse) {
+                mLoginResultMutableData.postValue("The use has been already logged in");
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                DataStoreManager.instance.saveStringData("LoggedUser", "Not");
+            }
+        });
+    }
 }

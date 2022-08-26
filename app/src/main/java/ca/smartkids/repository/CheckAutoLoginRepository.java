@@ -4,36 +4,33 @@ import org.json.JSONObject;
 
 import ca.smartkids.data.DataStoreManager;
 import ca.smartkids.model.UserResponse;
-import ca.smartkids.model.User;
 import ca.smartkids.retrofit.APIService;
 import ca.smartkids.retrofit.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginRepository {
+public class CheckAutoLoginRepository {
 
-    public LoginRepository(){
-    }
+    public CheckAutoLoginRepository(){}
 
-    public void loginRemote(User user, ILoginResponse loginResponse){
+    public void checkAutoLogin(String token, String parent_Id, CheckAutoLoginRepository.ICheckLoginResponse checkLoginResponse){
         APIService loginService = RetrofitClientInstance.getInstance().create(APIService.class);
-        Call<UserResponse> initiateLogin = loginService.login(user);
+        Call<UserResponse> reLogin = loginService.getUserById(parent_Id,"Bearer "+token);
 
-        initiateLogin.enqueue(new Callback<UserResponse>() {
+        reLogin.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful()){
-                    loginResponse.onResponse(response.body());
-                    User user = response.body().getUser();
-                    DataStoreManager.instance.saveStringData("token", user.access_token);
-                    DataStoreManager.instance.saveStringData("parent_id", user.user_id);
-                    DataStoreManager.instance.saveStringData("email", user.email);
+                    checkLoginResponse.onResponse(response.body());
+//                    User user = response.body().getUser();
+//                    System.out.println(user);
+                    DataStoreManager.instance.saveStringData("LoggedUser", "Yes");
                 }
                 else{
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        loginResponse.onFailure(new Throwable(jObjError.get("error").toString()));
+                        checkLoginResponse.onFailure(new Throwable(jObjError.get("error").toString()));
                     } catch (Exception e) {
                         System.out.println("System Error");
                     }
@@ -43,12 +40,12 @@ public class LoginRepository {
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                loginResponse.onFailure(t);
+                checkLoginResponse.onFailure(t);
             }
         });
     }
 
-    public interface ILoginResponse{
+    public interface ICheckLoginResponse{
         void onResponse(UserResponse userResponse);
         void onFailure(Throwable t);
     }

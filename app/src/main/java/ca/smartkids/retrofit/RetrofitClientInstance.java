@@ -17,7 +17,7 @@ public class RetrofitClientInstance {
 
     public static Retrofit getInstance(){
 
-        //Check the http request and response
+        //Monitor the http request and response
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
