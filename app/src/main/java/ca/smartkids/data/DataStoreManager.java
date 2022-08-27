@@ -32,11 +32,13 @@ public class DataStoreManager extends Application {
     private static DataStoreManager dataStoreManager_instance = null;
     private static final Handler dataStoreManagerHandler = new Handler(Looper.getMainLooper());
 
-    private DataStoreManager(){}
+    private DataStoreManager(){
+           }
 
     public static DataStoreManager getInstance() {
-        if (dataStoreManager_instance == null)
+        if (dataStoreManager_instance == null) {
             dataStoreManager_instance = new DataStoreManager();
+        }
         return dataStoreManager_instance;
     }
 

@@ -15,10 +15,10 @@ public class LogoutRepository {
     public LogoutRepository(){}
 
     public void logoutRemote(User user, LogoutRepository.ILogOutResponse logoutResponse){
-        APIService logoutService = RetrofitClientInstance.getInstance().create(APIService.class);
-        Call<UserResponse> initiateLogout = logoutService.login(user);
+        APIService retrofitService = RetrofitClientInstance.getInstance().create(APIService.class);
+        Call<UserResponse> call = retrofitService.login(user);
 
-        initiateLogout.enqueue(new Callback<UserResponse>() {
+        call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful()){

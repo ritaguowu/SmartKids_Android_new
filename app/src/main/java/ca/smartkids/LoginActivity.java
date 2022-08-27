@@ -28,9 +28,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         binding.progressbar.setVisibility(View.INVISIBLE);
-
-        DataStoreManager dataStoreManager = DataStoreManager.getInstance();
-        dataStoreManager.init(this);
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
 

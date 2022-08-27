@@ -25,6 +25,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DataStoreManager dataStoreManager = DataStoreManager.getInstance();
+        dataStoreManager.init(this);
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome);
 
         //Use font downloaded from below website:

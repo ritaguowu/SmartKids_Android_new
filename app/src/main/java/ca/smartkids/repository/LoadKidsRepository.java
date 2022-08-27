@@ -29,10 +29,10 @@ public class LoadKidsRepository {
 
     public void LoadKidsRemote(String token, String parent_Id, ILoadKidsResponse loadKidsResponse) {
 
-        APIService loginService = RetrofitClientInstance.getInstance().create(APIService.class);
-        Call<LoadKidsResponse> initiateLogin = loginService.getKidsByParentId(parent_Id, "Bearer " + token);
+        APIService retrofitService = RetrofitClientInstance.getInstance().create(APIService.class);
+        Call<LoadKidsResponse> call = retrofitService.getKidsByParentId(parent_Id, "Bearer " + token);
 
-        initiateLogin.enqueue(new Callback<LoadKidsResponse>() {
+        call.enqueue(new Callback<LoadKidsResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<LoadKidsResponse> call, Response<LoadKidsResponse> response) {

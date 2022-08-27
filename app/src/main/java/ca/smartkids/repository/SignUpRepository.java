@@ -12,19 +12,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CheckAutoLoginRepository {
+public class SignUpRepository {
+    public SignUpRepository(){
+    }
 
-    public CheckAutoLoginRepository(){}
-
-    public void checkAutoLogin(String token, String parent_Id, CheckAutoLoginRepository.ICheckLoginResponse checkLoginResponse){
+    public void signUpRemote(User user, SignUpRepository.ISignUpResponse signUpResponse){
         APIService retrofitService = RetrofitClientInstance.getInstance().create(APIService.class);
-        Call<UserResponse> call = retrofitService.getUserById(token, parent_Id);
+        Call<UserResponse> call = retrofitService.createUser(user);
+
 
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful()){
-                    checkLoginResponse.onResponse(response.body());
+                    signUpResponse.onResponse(response.body());
                     User user = response.body().getUser();
                     DataStoreManager.getInstance().saveStringData("token", user.getAccess_token());
                     DataStoreManager.getInstance().saveStringData("parent_id", user.getUser_id());
@@ -33,7 +34,7 @@ public class CheckAutoLoginRepository {
                 else{
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        checkLoginResponse.onFailure(new Throwable(jObjError.get("error").toString()));
+                        signUpResponse.onFailure(new Throwable(jObjError.get("error").toString()));
                     } catch (Exception e) {
                         System.out.println("System Error");
                     }
@@ -43,12 +44,12 @@ public class CheckAutoLoginRepository {
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                checkLoginResponse.onFailure(t);
+                signUpResponse.onFailure(t);
             }
         });
     }
 
-    public interface ICheckLoginResponse{
+    public interface ISignUpResponse{
         void onResponse(UserResponse userResponse);
         void onFailure(Throwable t);
     }

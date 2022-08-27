@@ -7,6 +7,8 @@ import ca.smartkids.data.DataStoreManager;
 import ca.smartkids.data.GlobalData;
 import ca.smartkids.model.User;
 import ca.smartkids.model.UserResponse;
+import ca.smartkids.repository.LoginRepository;
+import ca.smartkids.repository.SignUpRepository;
 import ca.smartkids.retrofit.APIService;
 import ca.smartkids.retrofit.RetrofitClientInstance;
 import retrofit2.Call;
@@ -16,10 +18,12 @@ import retrofit2.Response;
 public class SignUpViewModel extends ViewModel {
     private MutableLiveData<UserResponse> createNewUserLiveData;
     DataStoreManager dataInstance;
+    SignUpRepository signUpRepository;
 
     public SignUpViewModel() {
         createNewUserLiveData = new MutableLiveData<>();
         dataInstance = DataStoreManager.getInstance();
+        signUpRepository = new SignUpRepository();
     }
 
     public MutableLiveData<UserResponse> getCreateUserObserver() {
@@ -27,26 +31,18 @@ public class SignUpViewModel extends ViewModel {
     }
 
     public void createUser(User user) {
-        APIService retrofitService = RetrofitClientInstance.getInstance().create(APIService.class);
-        Call<UserResponse> call = retrofitService.createUser(user);
-        call.enqueue(new Callback<UserResponse>() {
-            @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                if (response.isSuccessful()) {
-                    createNewUserLiveData.postValue(response.body());
-                    User user = response.body().getUser();
-                    DataStoreManager.getInstance().saveStringData("token", response.body().getUser().getAccess_token());
-                    DataStoreManager.getInstance().saveStringData("parent_id", response.body().getUser().getUser_id());
-                    GlobalData.getInstance().setUser(user);
-                } else {
-                    createNewUserLiveData.postValue(null);
-                }
+
+        signUpRepository.signUpRemote(user, new SignUpRepository.ISignUpResponse() {
+
+            public void onResponse(UserResponse userResponse) {
+                createNewUserLiveData.postValue(userResponse);
             }
 
             @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
+            public void onFailure(Throwable t) {
                 createNewUserLiveData.postValue(null);
             }
         });
     }
+
 }

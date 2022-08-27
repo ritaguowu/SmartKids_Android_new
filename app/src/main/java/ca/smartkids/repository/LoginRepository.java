@@ -20,10 +20,10 @@ public class LoginRepository {
     }
 
     public void loginRemote(User user, ILoginResponse loginResponse){
-        APIService loginService = RetrofitClientInstance.getInstance().create(APIService.class);
-        Call<UserResponse> initiateLogin = loginService.login(user);
+        APIService retrofitService = RetrofitClientInstance.getInstance().create(APIService.class);
+        Call<UserResponse> call = retrofitService.login(user);
 
-        initiateLogin.enqueue(new Callback<UserResponse>() {
+        call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful()){
