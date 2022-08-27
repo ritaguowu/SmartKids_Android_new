@@ -26,10 +26,10 @@ public class SignUpRepository {
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful()){
                     signUpResponse.onResponse(response.body());
-                    User user = response.body().getUser();
-                    DataStoreManager.getInstance().saveStringData("token", user.getAccess_token());
-                    DataStoreManager.getInstance().saveStringData("parent_id", user.getUser_id());
-                    GlobalData.getInstance().setUser(user);
+                    User remoteUser = response.body().getUser();
+                    DataStoreManager.getInstance().saveStringData("token", remoteUser.getAccess_token());
+                    DataStoreManager.getInstance().saveStringData("parent_id", remoteUser.getUser_id());
+                    GlobalData.getInstance().setUser(remoteUser);
                 }
                 else{
                     try {

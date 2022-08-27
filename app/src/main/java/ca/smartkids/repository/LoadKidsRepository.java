@@ -38,7 +38,7 @@ public class LoadKidsRepository {
             public void onResponse(Call<LoadKidsResponse> call, Response<LoadKidsResponse> response) {
                 if (response.isSuccessful()) {
                     loadKidsResponse.onResponse(response.body());
-                    LoadKidsResponse userList = (LoadKidsResponse) response.body();
+                    LoadKidsResponse userList = response.body();
                     List<User> kidsList = userList.getUsers();
                     globalData.getInstance().setKids(kidsList);
                 } else {
