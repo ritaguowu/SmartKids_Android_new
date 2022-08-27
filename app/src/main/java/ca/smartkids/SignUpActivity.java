@@ -53,6 +53,24 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
+    private void initViewModel(){
+        signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
+        signUpViewModel.getCreateUserObserver().observe(this, new Observer<UserResponse>() {
+            @Override
+            public void onChanged(UserResponse userResponse) {
+                if (userResponse == null) {
+                    Toast.makeText(SignUpActivity.this, "Failed to create a new user", Toast.LENGTH_LONG).show();
+//
+                }
+                else{
+                    System.out.println(userResponse);
+                    Toast.makeText(SignUpActivity.this, "Successfully created a new user", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                }
+            }
+        });
+    }
+
     private void setupActionBar(){
         setSupportActionBar(binding.toolbarSignupActivity);
         binding.toolbarSignupActivity.setNavigationIcon(R.drawable.ic_black_back_24dp);
@@ -72,19 +90,5 @@ public class SignUpActivity extends AppCompatActivity {
         signUpViewModel.createUser(user);
     }
 
-    private void initViewModel(){
-        signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
-        signUpViewModel.getCreateUserObserver().observe(this, new Observer<UserResponse>() {
-            @Override
-            public void onChanged(UserResponse userResponse) {
-                if (userResponse == null) {
-                    Toast.makeText(SignUpActivity.this, "Failed to create a new user", Toast.LENGTH_LONG).show();
-//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                }
-                else{
-                    Toast.makeText(SignUpActivity.this, "Successfully created a new user", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
+
 }

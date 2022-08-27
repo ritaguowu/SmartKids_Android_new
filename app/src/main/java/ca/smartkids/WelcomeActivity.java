@@ -12,13 +12,16 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import ca.smartkids.data.DataStoreManager;
 import ca.smartkids.databinding.ActivityWelcomeBinding;
+import ca.smartkids.viewmodel.LoginViewModel;
 
-public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener{
+public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityWelcomeBinding binding;
 
     private Button btnSignupIntro;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,16 +47,17 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         binding.tvSignIn.setOnClickListener(this);
         binding.btnSignup.setOnClickListener(this);
 
+
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id== R.id.tvSignIn){
+        if (id == R.id.tvSignIn) {
             startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
-        }
-        else if(id== R.id.btnSignup){
+        } else if (id == R.id.btnSignup) {
             startActivity(new Intent(WelcomeActivity.this, SignUpActivity.class));
         }
     }
+
 }

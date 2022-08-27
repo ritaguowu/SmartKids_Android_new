@@ -5,26 +5,26 @@ import com.google.gson.annotations.SerializedName;
 public class User {
 
     @SerializedName("_id")
-    public String user_id;
+    private String user_id;
 
     @SerializedName("user_name")
-    public String user_name;
+    private String user_name;
 
     @SerializedName("email")
-    public String email;
+    private String email;
 
     @SerializedName("password")
-    public String password;
+    private String password;
 
 
     @SerializedName("image")
-    public String image;
+    private String image;
 
     @SerializedName("parentId")
-    public String parentId;
+    private String parentId;
 
     @SerializedName("access_token")
-    public String access_token;
+    private String access_token;
 
     public User(String user_name, String email, String password, String image, String parentId, String access_token) {
         this.user_name = user_name;
@@ -40,11 +40,19 @@ public class User {
         this.password = password;
     }
 
+
+//    public User(String user_name, String image) {
+//        this.user_name = user_name;
+//        this.image = image;
+//    }
+
     public User(String user_name, String email, String password) {
         this.user_name = user_name;
         this.password = password;
         this.email = email;
     }
+
+
 
     public String getUser_id() {
         return user_id;

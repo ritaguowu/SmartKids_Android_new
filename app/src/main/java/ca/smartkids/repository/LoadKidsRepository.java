@@ -9,7 +9,10 @@ import androidx.annotation.RequiresApi;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import ca.smartkids.data.DataStoreManager;
+import ca.smartkids.data.GlobalData;
 import ca.smartkids.model.LoadKidsResponse;
 import ca.smartkids.model.User;
 import ca.smartkids.retrofit.APIService;
@@ -19,28 +22,26 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoadKidsRepository {
+    GlobalData globalData;
+
     public LoadKidsRepository() {
     }
 
     public void LoadKidsRemote(String token, String parent_Id, ILoadKidsResponse loadKidsResponse) {
 
         APIService loginService = RetrofitClientInstance.getInstance().create(APIService.class);
-        Call<LoadKidsResponse> initiateLogin = loginService.getKidsByParentId(parent_Id, "Bearer "+token);
+        Call<LoadKidsResponse> initiateLogin = loginService.getKidsByParentId(parent_Id, "Bearer " + token);
 
         initiateLogin.enqueue(new Callback<LoadKidsResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<LoadKidsResponse> call, Response<LoadKidsResponse> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     loadKidsResponse.onResponse(response.body());
                     LoadKidsResponse userList = (LoadKidsResponse) response.body();
-                    List<User> users = userList.getUsers();
-                    users.forEach(System.out::println);
-//                    DataStoreManager.instance.saveStringData("user_id", userList.getUsers());
-//                    DataStoreManager.instance.saveStringData("image", userList.get(0).getUser().image);
-//                    DataStoreManager.instance.saveStringData("user_name", userList.getUsers().get(0).user_name);
-                }
-                else{
+                    List<User> kidsList = userList.getUsers();
+                    globalData.getInstance().setKids(kidsList);
+                } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         loadKidsResponse.onFailure(new Throwable(jObjError.get("error").toString()));
@@ -59,8 +60,9 @@ public class LoadKidsRepository {
         });
     }
 
-    public interface ILoadKidsResponse{
+    public interface ILoadKidsResponse {
         void onResponse(LoadKidsResponse loadKidsResponse);
+
         void onFailure(Throwable t);
     }
 }

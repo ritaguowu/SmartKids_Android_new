@@ -12,10 +12,12 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import ca.smartkids.data.DataStoreManager;
 import ca.smartkids.databinding.ActivitySplashBinding;
 
 
 public class SplashActivity extends AppCompatActivity {
+
     private ActivitySplashBinding binding;
 
     @Override

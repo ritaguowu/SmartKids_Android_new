@@ -7,11 +7,16 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import ca.smartkids.databinding.FragmentKidsBinding;
+import ca.smartkids.databinding.FragmentSettingsBinding;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class SettingsFragment extends Fragment {
+
+    private FragmentSettingsBinding binding;
 
     public SettingsFragment() {
         super(R.layout.fragment_settings);
@@ -51,6 +56,8 @@ public class SettingsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override

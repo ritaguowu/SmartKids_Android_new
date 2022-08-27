@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import ca.smartkids.data.DataStoreManager;
+import ca.smartkids.data.GlobalData;
 import ca.smartkids.model.LoadKidsResponse;
 import ca.smartkids.model.UserResponse;
 import ca.smartkids.model.User;
@@ -20,7 +21,7 @@ public class LoginViewModel extends ViewModel {
     LoadKidsRepository loadKidsRepository;
     CheckAutoLoginRepository checkAutoLoginRepository;
     DataStoreManager dataInstance;
-    String token = "";
+    String token ="";
 
     public LoginViewModel() {
         //Initialize the LiveData
@@ -28,7 +29,7 @@ public class LoginViewModel extends ViewModel {
         loginRepository = new LoginRepository();
         loadKidsRepository = new LoadKidsRepository();
         checkAutoLoginRepository = new CheckAutoLoginRepository();
-        dataInstance = DataStoreManager.instance;
+        dataInstance = DataStoreManager.getInstance();
     }
 
     public void login(String email, String password) {
@@ -37,13 +38,6 @@ public class LoginViewModel extends ViewModel {
 
             public void onResponse(UserResponse userResponse) {
                 mLoginResultMutableData.postValue("Login Success");
-                dataInstance.getStringValue("token", s -> {
-                    token = s;
-                    dataInstance.getStringValue("parent_id", p -> {
-                        loadKidsInfo(p);
-                    });
-//                    System.out.println("Test DataStore: token " + s);
-                });
             }
 
             @Override
@@ -53,15 +47,14 @@ public class LoginViewModel extends ViewModel {
         });
     }
 
-    public void loadKidsInfo(String parentId) {
+    public void loadKidsInfo() {
         mLoginResultMutableData.postValue("Loading Kids...");
+        String token = GlobalData.getInstance().getUser().getAccess_token();
+        String parentId = GlobalData.getInstance().getUser().getUser_id();
         loadKidsRepository.LoadKidsRemote(token, parentId, new LoadKidsRepository.ILoadKidsResponse() {
             @Override
             public void onResponse(LoadKidsResponse loadKidsResponse) {
                 mLoginResultMutableData.postValue("Load Kids Success");
-                dataInstance.getStringValue("user_name", s -> {
-                    System.out.println("Kids' name is: "+ s);
-                });
             }
 
             @Override
@@ -78,7 +71,12 @@ public class LoginViewModel extends ViewModel {
 
     public void checkIfAutoLogin() {
         mLoginResultMutableData.postValue("Loading user...");
-        dataInstance.getStringValue("parent_id", p -> {checkLogin(p);});
+        dataInstance.getStringValue("token", s -> {
+            token = s;
+            dataInstance.getStringValue("parent_id", p -> {
+                checkLogin(p);
+            });
+        });
     }
 
     public void checkLogin(String p){
@@ -90,7 +88,7 @@ public class LoginViewModel extends ViewModel {
 
             @Override
             public void onFailure(Throwable t) {
-                DataStoreManager.instance.saveStringData("LoggedUser", "Not");
+                mLoginResultMutableData.postValue("The use doesn't logged in");
             }
         });
     }

@@ -3,6 +3,8 @@ package ca.smartkids.repository;
 import org.json.JSONObject;
 
 import ca.smartkids.data.DataStoreManager;
+import ca.smartkids.data.GlobalData;
+import ca.smartkids.model.User;
 import ca.smartkids.model.UserResponse;
 import ca.smartkids.retrofit.APIService;
 import ca.smartkids.retrofit.RetrofitClientInstance;
@@ -16,16 +18,17 @@ public class CheckAutoLoginRepository {
 
     public void checkAutoLogin(String token, String parent_Id, CheckAutoLoginRepository.ICheckLoginResponse checkLoginResponse){
         APIService loginService = RetrofitClientInstance.getInstance().create(APIService.class);
-        Call<UserResponse> reLogin = loginService.getUserById(parent_Id,"Bearer "+token);
+        Call<UserResponse> reLogin = loginService.getUserById(token, parent_Id);
 
         reLogin.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful()){
                     checkLoginResponse.onResponse(response.body());
-//                    User user = response.body().getUser();
-//                    System.out.println(user);
-                    DataStoreManager.instance.saveStringData("LoggedUser", "Yes");
+                    User user = response.body().getUser();
+                    DataStoreManager.getInstance().saveStringData("token", user.getAccess_token());
+                    DataStoreManager.getInstance().saveStringData("parent_id", user.getUser_id());
+                    GlobalData.getInstance().setUser(user);
                 }
                 else{
                     try {

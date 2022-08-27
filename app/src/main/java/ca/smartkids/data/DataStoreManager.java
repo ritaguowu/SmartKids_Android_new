@@ -1,8 +1,10 @@
 package ca.smartkids.data;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.datastore.core.DataStore;
 
@@ -21,13 +23,22 @@ import io.reactivex.rxjava3.core.FlowableSubscriber;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-
-public class DataStoreManager {
-
-    public static final DataStoreManager instance = new DataStoreManager();
+public class DataStoreManager extends Application {
+    //Remember the key points while defining class as a singleton class that is while designing a singleton class:
+    //
+    //1. Make a constructor private.
+    //2. Write a static method that has the return type object of this singleton class.
+    // Here, the concept of Lazy initialization is used to write this static method.
+    private static DataStoreManager dataStoreManager_instance = null;
     private static final Handler dataStoreManagerHandler = new Handler(Looper.getMainLooper());
 
-    private DataStoreManager() {}
+    private DataStoreManager(){}
+
+    public static DataStoreManager getInstance() {
+        if (dataStoreManager_instance == null)
+            dataStoreManager_instance = new DataStoreManager();
+        return dataStoreManager_instance;
+    }
 
     private DataStore<Preferences> dataStore;
 
@@ -42,6 +53,7 @@ public class DataStoreManager {
                 preferences -> {
                     MutablePreferences mutablePreferences = preferences.toMutablePreferences();
                     String currentKey = preferences.get(key);
+//                    System.out.println(currentKey);
 
                     if (currentKey == null){
                         saveStringData(keyName, value);
@@ -68,7 +80,9 @@ public class DataStoreManager {
                     }
 
                     @Override
-                    public void onError(Throwable t) { }
+                    public void onError(Throwable e) {
+                        Log.e("getAppsError", e.getMessage());
+                    }
 
                     @Override
                     public void onComplete() {  }

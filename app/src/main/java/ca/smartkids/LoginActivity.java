@@ -7,12 +7,14 @@ import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowManager;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import ca.smartkids.data.DataStoreManager;
+import ca.smartkids.data.GlobalData;
 import ca.smartkids.databinding.ActivityLoginBinding;
 import ca.smartkids.viewmodel.LoginViewModel;
 
@@ -25,9 +27,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        binding.progressbar.setVisibility(View.INVISIBLE);
 
-
-        DataStoreManager.instance.init(this);
+        DataStoreManager dataStoreManager = DataStoreManager.getInstance();
+        dataStoreManager.init(this);
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
 
@@ -42,9 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         setupActionBar();
 
-        //Check if the user has already has token
-//        if (checkIfAutoLogin())
-//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        loginViewModel.checkIfAutoLogin();
 
         //Click the login button
         binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
@@ -52,30 +53,32 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = binding.etEmail.getText().toString().trim();
                 String password = binding.etPassword.getText().toString().trim();
+                binding.progressbar.setVisibility(View.VISIBLE);
                 loginViewModel.login(email, password);
             }
         });
 
         //Create the observer which updates the UI.
         loginViewModel.getLoginResult().observe(this, new Observer<String>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(String s) {
+                binding.progressbar.setVisibility(View.INVISIBLE);
                 binding.tvLoginResult.setText(s);
+                if (s.equals("The use has been already logged in")){
+                    loginViewModel.loadKidsInfo();
+                }
+                if (s.equals("Login Success")){
+                    loginViewModel.loadKidsInfo();
+                }
                 if (s.equals("Load Kids Success")) {
+                    GlobalData.getInstance().getKids().forEach(System.out::println);;
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }
             }
         });
-
     }
 
-    private boolean checkIfAutoLogin(){
-        loginViewModel.checkIfAutoLogin();
-        if (binding.tvLoginResult.getText().equals("The use has been already logged in"))
-            return true;
-        else
-            return false;
-    }
 
     private void setupActionBar(){
         setSupportActionBar(binding.toolbarLoginActivity);
