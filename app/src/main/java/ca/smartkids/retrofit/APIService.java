@@ -26,8 +26,11 @@ public interface APIService {
 //    @Headers({"Accept:application/json", "content-Type:application/json", "Authorization: Bearer"})
     Call<UserResponse> createUser(@Body User user);
 
-    @POST("/api/v1/kid/{parentId}")
-    Call<UserResponse> signupKid(@Path("parentId") String parentId, @Body User user);
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("/api/v1/kid")
+    Call<UserResponse> createKid(@Query("kidName") String kidName,
+                                 @Query("parentId") String parentId,
+                                 @Header("Authorization") String auth);
 
     @GET("/api/v1/user")
     Call<UserResponse> getUserById(@Query("token") String token, @Query("parentId") String parentId);

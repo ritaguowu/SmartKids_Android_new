@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="?attr/fullscreenBackgroundColor"
     android:theme="@style/ThemeOverlay.SmartKids.FullscreenContainer"
-    tools:context=".PointsFragment">
+    tools:context=".view.PointsFragment">
 
         <!-- TODO: Update blank fragment layout -->
     <TextView

@@ -1,4 +1,4 @@
-package ca.smartkids;
+package ca.smartkids.view;
 
 import android.content.Intent;
 import android.os.Build;
@@ -13,11 +13,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import ca.smartkids.R;
 import ca.smartkids.databinding.ActivityLoginBinding;
 import ca.smartkids.databinding.ActivitySignUpBinding;
 import ca.smartkids.model.User;
 import ca.smartkids.model.UserResponse;
-import ca.smartkids.viewmodel.LoginViewModel;
 import ca.smartkids.viewmodel.SignUpViewModel;
 
 

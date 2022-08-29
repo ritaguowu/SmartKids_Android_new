@@ -5,19 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<!--        <data>-->
-<!--            <variable-->
-<!--                name="user"-->
-<!--                type="ca.wu.model.User" />-->
-
-<!--            <variable-->
-<!--                name="listener"-->
-<!--                type="ca.wu.adapters.UserClickListener" />-->
-<!--        </data>-->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -36,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:background="?attr/fullscreenBackgroundColor"
                 android:padding="@dimen/item_content_padding"
                 >
 
@@ -44,7 +36,7 @@
                     android:layout_width="@dimen/item_circular_image_size"
                     android:layout_height="@dimen/item_circular_image_size"
                     android:contentDescription="@string/image_content_description"
-                    android:src="@mipmap/ic_launcher_round"
+                    android:src="@drawable/default_kid"
                     app:civ_border_color="@color/circular_image_border_color"
                     tools:ignore="ImageContrastCheck" />
 
@@ -67,6 +59,7 @@
                         android:id="@+id/tvUserName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
                         android:textColor="@color/item_description_text_color"
                         android:textSize="@dimen/item_description_textSize"
                         android:textStyle="bold"

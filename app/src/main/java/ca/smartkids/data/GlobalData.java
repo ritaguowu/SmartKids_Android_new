@@ -15,8 +15,8 @@ public class GlobalData {
         return global_instance;
     }
 
-    public User user;
-    public List<User> kids = new ArrayList<>();
+    private User user;
+    private List<User> kids = new ArrayList<>();
 
     public User getUser() {
         return user;

@@ -1,4 +1,4 @@
-package ca.smartkids;
+package ca.smartkids.view;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import ca.smartkids.R;
 import ca.smartkids.data.DataStoreManager;
 import ca.smartkids.databinding.ActivitySplashBinding;
 

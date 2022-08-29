@@ -20,7 +20,7 @@ public class LoginViewModel extends ViewModel {
     LoginRepository loginRepository;
     LoadKidsRepository loadKidsRepository;
     CheckAutoLoginRepository checkAutoLoginRepository;
-    DataStoreManager dataInstance;
+    DataStoreManager dataInstance = DataStoreManager.getInstance();
     String token ="";
 
     public LoginViewModel() {

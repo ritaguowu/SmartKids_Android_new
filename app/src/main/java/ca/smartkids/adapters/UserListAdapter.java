@@ -10,19 +10,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ca.smartkids.R;
 import ca.smartkids.model.User;
 
-public class UserLstAdapter extends RecyclerView.Adapter<UserLstAdapter.UserViewHolder> {
+public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserViewHolder> {
 
     private ArrayList<User> kidsList;
 
-    public UserLstAdapter(ArrayList<User> kidsList) {
+    public UserListAdapter(ArrayList<User> kidsList) {
         this.kidsList = kidsList;
+    }
+
+    public void updateKidsList(List<User> newKidsList) {
+        kidsList.clear();
+        kidsList.addAll(newKidsList);
 
         notifyDataSetChanged();
     }
+
 
     @NonNull
     @Override
@@ -52,7 +59,6 @@ public class UserLstAdapter extends RecyclerView.Adapter<UserLstAdapter.UserView
        // Reference to each cell view. Each cell view will pass to constructor
         // when we want to create an object from this class
         public View itemView;
-        //public ItemDogBinding itemView;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);

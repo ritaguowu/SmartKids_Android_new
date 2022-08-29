@@ -1,4 +1,4 @@
-package ca.smartkids;
+package ca.smartkids.view;
 
 import android.os.Bundle;
 
@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import ca.smartkids.R;
 import ca.smartkids.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:background="?attr/fullscreenBackgroundColor"
         android:theme="@style/ThemeOverlay.SmartKids.FullscreenContainer"
-        tools:context=".SettingsFragment"
+        tools:context=".view.SettingsFragment"
         >
 
         <!-- TODO: Update blank fragment layout -->

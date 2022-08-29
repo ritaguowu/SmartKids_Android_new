@@ -40,4 +40,9 @@
     <string name="settings">Settings</string>
     <string name="points">points</string>
     <string name="log_out">Log Out</string>
+    <string name="confirmation">Add Kid</string>
+    <string name="ok">Add Kid</string>
+    <string name="cancel">Cancel</string>
+    <string name="please_enter_your_kid_s_name">Please enter your kid\'s name</string>
+    <string name="submit">Submit</string>
 </resources>

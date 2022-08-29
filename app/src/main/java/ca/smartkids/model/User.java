@@ -40,19 +40,15 @@ public class User {
         this.password = password;
     }
 
-
-//    public User(String user_name, String image) {
-//        this.user_name = user_name;
-//        this.image = image;
-//    }
-
     public User(String user_name, String email, String password) {
         this.user_name = user_name;
         this.password = password;
         this.email = email;
     }
 
-
+    public User(String user_name) {
+        this.user_name = user_name;
+    }
 
     public String getUser_id() {
         return user_id;

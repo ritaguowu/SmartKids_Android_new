@@ -1,4 +1,4 @@
-package ca.smartkids;
+package ca.smartkids.view;
 
 import android.content.Intent;
 import android.os.Build;
@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import ca.smartkids.R;
 import ca.smartkids.data.DataStoreManager;
 import ca.smartkids.data.GlobalData;
 import ca.smartkids.databinding.ActivityLoginBinding;
@@ -42,8 +43,9 @@ public class LoginActivity extends AppCompatActivity {
         }
         setupActionBar();
 
-        loginViewModel.checkIfAutoLogin();
-
+        if (DataStoreManager.getInstance() != null) {
+            loginViewModel.checkIfAutoLogin();
+        }
         //Click the login button
         binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
