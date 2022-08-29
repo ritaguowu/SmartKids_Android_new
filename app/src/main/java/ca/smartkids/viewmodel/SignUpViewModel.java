@@ -3,6 +3,8 @@ package ca.smartkids.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
+
 import ca.smartkids.data.DataStoreManager;
 import ca.smartkids.data.GlobalData;
 import ca.smartkids.model.User;
@@ -24,6 +26,7 @@ public class SignUpViewModel extends ViewModel {
         createNewUserLiveData = new MutableLiveData<>();
         dataInstance = DataStoreManager.getInstance();
         signUpRepository = new SignUpRepository();
+        GlobalData.getInstance().setKids(new ArrayList<>());
     }
 
     public MutableLiveData<UserResponse> getCreateUserObserver() {
