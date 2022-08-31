@@ -39,8 +39,12 @@ public interface APIService {
     @GET("/api/v1/kids")
     Call<LoadKidsResponse> getKidsByParentId(@Query("parentId") String parentId, @Header("Authorization") String auth);
 
-    @GET("/api/v1/parent/{email}")
-    Call<List<UserResponse>> updateParent(@Path("email") String email);
+
+    @PUT("/api/v1/parent")
+    Call<UserResponse> updateParent(@Query("email") String email, @Body User user, @Header("Authorization") String aut);
+
+
+
 
     @PUT("/api/v1/kid/{email}&{kid_name}")
     Call<List<UserResponse>> updateKid(@Path("email") String email, @Body User user);

@@ -20,7 +20,7 @@
 
     <dimen name="sign_up_screen_btn_marginTop">30dp</dimen>
     <dimen name="toolbar_title_text_size">18sp</dimen>
-    <dimen name="authentication_screen_content_marginTop">40dp</dimen>
+    <dimen name="authentication_screen_content_marginTop">30dp</dimen>
     <dimen name="authentication_description_text_size">16sp</dimen>
     <dimen name="authentication_screen_marginStartEnd">25dp</dimen>
     <dimen name="authentication_screen_card_view_marginTop">60dp</dimen>
@@ -50,7 +50,7 @@
     <dimen name="no_records_text">16sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="add_kid_til_marginTop">5dp</dimen>
-    <dimen name="add_kid_place_image_size">200dp</dimen>
+    <dimen name="add_kid_place_image_size">180dp</dimen>
     <dimen name="add_kid_place_image_marginTop">15dp</dimen>
     <dimen name="add_kid_place_image_padding">2dp</dimen>
     <dimen name="add_kid_text_add_image_marginTop">96dp</dimen>
@@ -61,6 +61,8 @@
     <dimen name="image_border_stroke_size">1.5dp</dimen>
     <dimen name="add_kid_image_shape_radius">3dp</dimen>
     <dimen name="button_radius">10dp</dimen>
+    <dimen name="item_textSize">18dp</dimen>
+    <dimen name="item_left_padding">20dp</dimen>
 
 
 </resources>

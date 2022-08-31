@@ -3,14 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-    </data>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ModifyUserFragment">
+        android:theme="@style/ThemeOverlay.SmartKids.FullscreenContainer"
+        android:background="?attr/fullscreenBackgroundColor"
+        tools:context=".view.MyProfileFragment">
 
         <!-- TODO: Update blank fragment layout -->
         <LinearLayout
@@ -18,6 +16,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/authentication_screen_content_marginTop"
+            android:background="?attr/fullscreenBackgroundColor"
             android:orientation="vertical">
 
             <TextView
@@ -26,15 +25,16 @@
                 android:layout_marginStart="@dimen/authentication_screen_marginStartEnd"
                 android:layout_marginEnd="@dimen/authentication_screen_marginStartEnd"
                 android:gravity="center"
-                android:text="@string/add_kid_text"
-                android:textColor="@color/secondary_text_color"
-                android:textSize="@dimen/authentication_description_text_size" />
+                android:text="My Profile"
+                android:textSize="24dp"
+                android:textFontWeight="600"
+                android:textColor="@color/white" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/authentication_screen_marginStartEnd"
-                android:layout_marginTop="@dimen/authentication_screen_card_view_marginTop"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="@dimen/authentication_screen_marginStartEnd"
                 android:elevation="@dimen/card_view_elevation"
                 app:cardCornerRadius="@dimen/card_view_corner_radius">
@@ -42,6 +42,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="?attr/fullscreenBackgroundColor"
                     android:orientation="vertical"
                     android:padding="@dimen/card_view_layout_content_padding">
 
@@ -58,6 +59,41 @@
                             android:hint="@string/name"
                             android:inputType="textEmailAddress"
                             android:textSize="@dimen/et_text_size" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
+                        android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/etPassword1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/password"
+                            android:inputType="textEmailAddress"
+                            android:textSize="@dimen/et_text_size" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
+                        android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/etPassword2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/confirm_password"
+                            android:inputType="textEmailAddress"
+                            android:textSize="@dimen/et_text_size" />
+
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -90,14 +126,14 @@
                             android:gravity="center"
                             android:padding="@dimen/add_kid_text_add_image_padding"
                             android:text="@string/text_add_image"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@color/white"
                             android:textSize="@dimen/add_kid_text_add_image_textSize"
                             android:textStyle="bold" />
 
                     </LinearLayout>
 
                     <Button
-                        android:id="@+id/btnSignup"
+                        android:id="@+id/btnSave"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -105,12 +141,12 @@
                         android:layout_marginStart="@dimen/btn_marginStartEnd"
                         android:layout_marginTop="@dimen/sign_up_screen_btn_marginTop"
                         android:layout_marginEnd="@dimen/btn_marginStartEnd"
-                        android:background="@drawable/shape_button_rounded"
+                        android:background="@drawable/shape_button_rounded_my_profile"
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"
                         android:paddingTop="@dimen/btn_paddingTopBottom"
                         android:paddingBottom="@dimen/btn_paddingTopBottom"
-                        android:text="@string/add_kid"
+                        android:text="@string/save"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/btn_text_size" />
                 </LinearLayout>

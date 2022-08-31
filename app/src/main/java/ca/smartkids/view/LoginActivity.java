@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onChanged(String s) {
                 binding.progressbar.setVisibility(View.INVISIBLE);
                 binding.tvLoginResult.setText(s);
-                if (s.equals("The use has been already logged in")){
+                if (s.equals("The user has been already logged in")){
                     loginViewModel.loadKidsInfo();
                 }
                 if (s.equals("Login Success")){

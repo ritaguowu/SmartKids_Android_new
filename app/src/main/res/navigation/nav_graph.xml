@@ -20,4 +20,8 @@
         android:name="ca.smartkids.view.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/myProfileFragment"
+        android:name="ca.smartkids.view.MyProfileFragment"
+        android:label="MyProfileFragment" />
 </navigation>

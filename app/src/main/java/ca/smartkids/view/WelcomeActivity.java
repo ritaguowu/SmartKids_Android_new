@@ -28,6 +28,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         DataStoreManager dataStoreManager = DataStoreManager.getInstance();
         dataStoreManager.init(this);
 
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome);
 
         //Use font downloaded from below website:

@@ -21,7 +21,7 @@ public class LoginViewModel extends ViewModel {
     LoadKidsRepository loadKidsRepository;
     CheckAutoLoginRepository checkAutoLoginRepository;
     DataStoreManager dataInstance = DataStoreManager.getInstance();
-    String token ="";
+    String token = "";
 
     public LoginViewModel() {
         //Initialize the LiveData
@@ -33,7 +33,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void login(String email, String password) {
-        mLoginResultMutableData.postValue("Checking");
+        mLoginResultMutableData.postValue("Checking...");
         loginRepository.loginRemote(new User(email, password), new LoginRepository.ILoginResponse() {
 
             public void onResponse(UserResponse userResponse) {
@@ -70,25 +70,29 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void checkIfAutoLogin() {
-        mLoginResultMutableData.postValue("Loading user...");
+//        mLoginResultMutableData.postValue("Loading user...");
         dataInstance.getStringValue("token", s -> {
-            token = s;
-            dataInstance.getStringValue("parent_id", p -> {
-                checkLogin(p);
-            });
+            if (!s.equals("")) {
+                token = s;
+                dataInstance.getStringValue("parent_id", p -> {
+                    checkLogin(p);
+                });
+            } else {
+                mLoginResultMutableData.postValue("");
+            }
         });
     }
 
-    public void checkLogin(String p){
+    public void checkLogin(String p) {
         checkAutoLoginRepository.checkAutoLogin(token, p, new CheckAutoLoginRepository.ICheckLoginResponse() {
             @Override
             public void onResponse(UserResponse userResponse) {
-                mLoginResultMutableData.postValue("The use has been already logged in");
+                mLoginResultMutableData.postValue("The user has been already logged in");
             }
 
             @Override
             public void onFailure(Throwable t) {
-                mLoginResultMutableData.postValue("The use doesn't logged in");
+                mLoginResultMutableData.postValue("The user doesn't logged in");
             }
         });
     }

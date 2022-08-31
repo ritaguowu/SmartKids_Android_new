@@ -45,4 +45,8 @@
     <string name="cancel">Cancel</string>
     <string name="please_enter_your_kid_s_name">Please enter your kid\'s name</string>
     <string name="submit">Submit</string>
+    <string name="my_profit">My Profit</string>
+    <string name="my_message">My Message</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="save">Save</string>
 </resources>

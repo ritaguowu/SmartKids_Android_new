@@ -14,7 +14,6 @@ public class RetrofitClientInstance {
     private static Retrofit retrofit;
     public static final String API_BASE_URL = "http://192.168.31.235:5000/";
 
-
     public static Retrofit getInstance(){
 
         //Monitor the http request and response
