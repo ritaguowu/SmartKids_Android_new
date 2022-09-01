@@ -55,5 +55,14 @@ public class UserListViewModel extends AndroidViewModel {
         loading.setValue(false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void removeKid(User kid){
+        ArrayList<User> kidsList = (ArrayList<User>) GlobalData.getInstance().getKids();
+        kidsList.remove(kid);
+        kids.setValue(kidsList);
+        kidsLoadError.setValue(false);
+        loading.setValue(false);
+    }
+
 }
 

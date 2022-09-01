@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (s.equals("Load Kids Success")) {
                     GlobalData.getInstance().getKids().forEach(System.out::println);;
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    startActivity(new Intent(LoginActivity.this, ParentMainActivity.class));
                 }
             }
         });

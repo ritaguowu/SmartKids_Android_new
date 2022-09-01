@@ -2,11 +2,13 @@ package ca.smartkids.view;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +19,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +35,7 @@ import ca.smartkids.databinding.FragmentKidsBinding;
 import ca.smartkids.model.User;
 import ca.smartkids.model.UserResponse;
 import ca.smartkids.util.ImageUtil;
+import ca.smartkids.util.SwipeToDeleteCallback;
 import ca.smartkids.viewmodel.KidViewModel;
 import ca.smartkids.viewmodel.UserListViewModel;
 
@@ -80,6 +87,8 @@ public class KidsFragment extends Fragment {
 
         observeViewModel();
 
+        enableSwipeToDelete();
+
         //Add Kid button
         binding.fabAddKid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,5 +136,36 @@ public class KidsFragment extends Fragment {
             }
         });
     }
+
+    private void enableSwipeToDelete() {
+        SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(getActivity()) {
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+                final int position = viewHolder.getAdapterPosition();
+                kidViewModel.removeKidRemote(userListAdapter.getKidAt(position));
+            }
+        };
+
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
+        itemTouchhelper.attachToRecyclerView(binding.rvKidList);
+
+
+        //The second method to swipe
+//        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+//            @Override
+//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                boolean isFinishRemove = kidViewModel.removeKidRemote(userListAdapter.getKidAt(viewHolder.getAdapterPosition()));
+//                if (isFinishRemove)
+//                    Toast.makeText(getActivity(), "Kid delete successfully", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        itemTouchhelper.attachToRecyclerView(binding.rvKidList);
+    }
+
 
 }

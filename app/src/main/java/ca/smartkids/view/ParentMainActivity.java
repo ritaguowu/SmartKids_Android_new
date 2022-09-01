@@ -15,7 +15,7 @@ import ca.smartkids.R;
 import ca.smartkids.databinding.ActivityMainBinding;
 import ca.smartkids.viewmodel.MyProfileViewModel;
 
-public class MainActivity extends AppCompatActivity {
+public class ParentMainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private MyProfileViewModel myProfileViewModel;

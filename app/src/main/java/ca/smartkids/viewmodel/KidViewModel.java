@@ -55,9 +55,40 @@ public class KidViewModel {
         });
     }
 
+    public void removeKidRemote(User kid){
+        APIService retrofitService = RetrofitClientInstance.getInstance().create(APIService.class);
+        String token = GlobalData.getInstance().getUser().getAccess_token();
+        String kidId = kid.getUser_id();
+        Call<UserResponse> call = retrofitService.removeKid(kidId,"Bearer " + token);
+        call.enqueue(new Callback<UserResponse>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if (response.isSuccessful()){
+                    removeKid(kid);
+                    GlobalData.getInstance().getKids().forEach(System.out::println);
+
+                }else
+                {
+                    System.out.println("Load kid failed");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                System.out.println("System error");
+            }
+        });
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void insertKid(){
         User newKid = kid;
         viewModel.insertKid(newKid);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void removeKid(User kid){
+        viewModel.removeKid(kid);
     }
 }

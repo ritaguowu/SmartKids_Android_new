@@ -55,6 +55,16 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         return kidsList.size();
     }
 
+    public User getKidAt(int postion){
+        return kidsList.get(postion);
+    }
+
+    public void remove(int position) {
+//        kidsList.remove(position);
+        notifyDataSetChanged();
+    }
+
+
     public class UserViewHolder extends RecyclerView.ViewHolder {
        // Reference to each cell view. Each cell view will pass to constructor
         // when we want to create an object from this class
@@ -65,4 +75,5 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
             this.itemView = itemView;
         }
     }
+
 }

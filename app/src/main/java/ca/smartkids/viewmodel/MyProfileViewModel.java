@@ -33,10 +33,8 @@ public class MyProfileViewModel extends ViewModel {
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful()){
                     updateUserLiveData.setValue(response.body());
-                    User uer = response.body().getUser();
-                    DataStoreManager.getInstance().saveStringData("token", uer.getAccess_token());
-                    DataStoreManager.getInstance().saveStringData("parent_id", uer.getUser_id());
-
+                    User user = response.body().getUser();
+                    GlobalData.getInstance().setUser(user);
                 }
             }
 

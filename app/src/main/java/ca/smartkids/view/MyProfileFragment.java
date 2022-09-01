@@ -93,7 +93,12 @@ public class MyProfileFragment extends Fragment {
             public void onClick(View v) {
                 User user = createNewUser();
                 System.out.println(user.getUser_name());
-                GlobalData.getInstance().setUser(user);
+                //Workaround
+                GlobalData.getInstance().getUser().setImage(imageString);
+                GlobalData.getInstance().getUser().setUser_name(user.getUser_name());
+
+                //below statement will cause datastore information missing
+//                getActivity().onBackPressed();
                 getParentFragmentManager().popBackStack();
             }
         });

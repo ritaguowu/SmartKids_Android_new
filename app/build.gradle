@@ -5,6 +5,7 @@ plugins {
 android {
     compileSdk 32
 
+    buildToolsVersion "28.0"
     defaultConfig {
         applicationId "ca.smartkids"
         minSdk 21
