@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import ca.smartkids.R;
+import ca.smartkids.data.GlobalData;
 import ca.smartkids.databinding.ActivityKidMainBinding;
 import ca.smartkids.databinding.ActivityLoginBinding;
 
@@ -30,7 +31,7 @@ public class KidMainActivity extends AppCompatActivity {
         }
 
 
-        binding.etEmail.setText(position+"");
+        binding.tvTitle.setText(GlobalData.getInstance().getKids().get(position).toString());
 
     }
 }

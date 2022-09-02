@@ -26,13 +26,18 @@ public class User {
     @SerializedName("access_token")
     private String access_token;
 
-    public User(String user_name, String email, String password, String image, String parentId, String access_token) {
+    @SerializedName("points")
+    private int points;
+
+    public User(String user_id, String user_name, String email, String password, String image, String parentId, String access_token, int points) {
+        this.user_id = user_id;
         this.user_name = user_name;
         this.email = email;
         this.password = password;
         this.image = image;
         this.parentId = parentId;
         this.access_token = access_token;
+        this.points = points;
     }
 
     public User(String email, String password) {
@@ -113,6 +118,14 @@ public class User {
         this.access_token = access_token;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -123,6 +136,7 @@ public class User {
                 ", image='" + image + '\'' +
                 ", parentId='" + parentId + '\'' +
                 ", access_token='" + access_token + '\'' +
+                ", points=" + points +
                 '}';
     }
 }
