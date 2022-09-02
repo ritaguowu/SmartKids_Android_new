@@ -1,5 +1,6 @@
 package ca.smartkids.view;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -23,7 +24,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ import ca.smartkids.adapters.UserListAdapter;
 import ca.smartkids.data.GlobalData;
 import ca.smartkids.databinding.FragmentKidsBinding;
 import ca.smartkids.model.User;
-import ca.smartkids.model.UserResponse;
+
 import ca.smartkids.util.ImageUtil;
 import ca.smartkids.util.SwipeToDeleteCallback;
 import ca.smartkids.viewmodel.KidViewModel;
@@ -43,7 +43,7 @@ import ca.smartkids.viewmodel.UserListViewModel;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class KidsFragment extends Fragment {
+public class KidsFragment extends Fragment implements UserListAdapter.OnActionListener{
     private List<User> kidsList = new ArrayList<>();
     private UserListViewModel viewModel;
     private UserListAdapter userListAdapter;
@@ -82,7 +82,8 @@ public class KidsFragment extends Fragment {
 
         // Initialize RecyclerView ......................................
         binding.rvKidList.setLayoutManager(new LinearLayoutManager(getContext()));
-        userListAdapter = new UserListAdapter(new ArrayList<>());
+
+        userListAdapter = new UserListAdapter(new ArrayList<>(), this);
         binding.rvKidList.setAdapter(userListAdapter);
 
         observeViewModel();
@@ -168,4 +169,9 @@ public class KidsFragment extends Fragment {
     }
 
 
+    public void startActivity(int position){
+        Intent openKidsActivity = new Intent(getActivity(), KidMainActivity.class);
+        openKidsActivity.putExtra("index",position);
+        getActivity().startActivity(openKidsActivity);
+    }
 }

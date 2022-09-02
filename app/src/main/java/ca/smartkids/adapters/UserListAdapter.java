@@ -1,9 +1,11 @@
 package ca.smartkids.adapters;
 
+import android.database.Observable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,13 +16,20 @@ import java.util.List;
 
 import ca.smartkids.R;
 import ca.smartkids.model.User;
+import io.reactivex.rxjava3.subjects.PublishSubject;
 
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserViewHolder> {
 
     private ArrayList<User> kidsList;
 
-    public UserListAdapter(ArrayList<User> kidsList) {
+    //How to start activity from RecyclerView adapter in fragment
+    //https://androiderrors.com/how-to-start-activity-from-recyclerview-adapter-in-fragment/
+
+    private OnActionListener mListener;
+
+    public UserListAdapter(ArrayList<User> kidsList, OnActionListener listener) {
         this.kidsList = kidsList;
+        this.mListener = listener;
     }
 
     public void updateKidsList(List<User> newKidsList) {
@@ -48,6 +57,13 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
 
         // Set value for UI elements
         name.setText(kidsList.get(position).getUser_name());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.startActivity( holder.getAdapterPosition());
+            }
+        });
     }
 
     @Override
@@ -59,12 +75,6 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         return kidsList.get(postion);
     }
 
-    public void remove(int position) {
-//        kidsList.remove(position);
-        notifyDataSetChanged();
-    }
-
-
     public class UserViewHolder extends RecyclerView.ViewHolder {
        // Reference to each cell view. Each cell view will pass to constructor
         // when we want to create an object from this class
@@ -74,6 +84,11 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
             super(itemView);
             this.itemView = itemView;
         }
+
+    }
+
+    public interface OnActionListener {
+        public void startActivity(int position);
     }
 
 }
