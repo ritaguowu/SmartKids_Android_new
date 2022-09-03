@@ -32,8 +32,8 @@ public interface APIService {
                                  @Query("parentId") String parentId,
                                  @Header("Authorization") String auth);
 
-    @GET("/api/v1/user")
-    Call<UserResponse> getUserById(@Query("token") String token, @Query("parentId") String parentId);
+    @GET("/api/v1/parent")
+    Call<UserResponse> getParentById(@Query("token") String token, @Query("parentId") String parentId);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     @GET("/api/v1/kids")

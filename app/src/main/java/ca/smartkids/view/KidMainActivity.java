@@ -18,6 +18,7 @@ public class KidMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_kid_main);
 
+
         int position;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();

@@ -18,7 +18,7 @@ public class CheckAutoLoginRepository {
 
     public void checkAutoLogin(String token, String parent_Id, CheckAutoLoginRepository.ICheckLoginResponse checkLoginResponse){
         APIService retrofitService = RetrofitClientInstance.getInstance().create(APIService.class);
-        Call<UserResponse> call = retrofitService.getUserById(token, parent_Id);
+        Call<UserResponse> call = retrofitService.getParentById(token, parent_Id);
 
         call.enqueue(new Callback<UserResponse>() {
             @Override
@@ -29,6 +29,11 @@ public class CheckAutoLoginRepository {
                     DataStoreManager.getInstance().saveStringData("token", user.getAccess_token());
                     DataStoreManager.getInstance().saveStringData("parent_id", user.getUser_id());
                     GlobalData.getInstance().setUser(user);
+                    if (GlobalData.getInstance().getKids().size()!=0) {
+                        for (User kid : GlobalData.getInstance().getKids()) {
+                            kid.setAccess_token(user.getAccess_token());
+                        }
+                    }
                 }
                 else{
                     try {
