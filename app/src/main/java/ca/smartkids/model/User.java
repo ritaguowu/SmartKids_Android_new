@@ -1,5 +1,7 @@
 package ca.smartkids.model;
 
+import android.util.Patterns;
+
 import com.google.gson.annotations.SerializedName;
 
 public class User {
@@ -56,6 +58,13 @@ public class User {
         this.email = email;
         this.password = password;
         this.image = image;
+    }
+
+    public User(String user_id, String user_name, String image, int points) {
+        this.user_id = user_id;
+        this.user_name = user_name;
+        this.image = image;
+        this.points = points;
     }
 
     public User(String user_name) {
@@ -124,6 +133,15 @@ public class User {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public boolean isEmailValid() {
+        return Patterns.EMAIL_ADDRESS.matcher(getEmail()).matches();
+    }
+
+
+    public boolean isPasswordLengthGreaterThan5() {
+        return getPassword().length() >= 5;
     }
 
     @Override

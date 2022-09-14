@@ -46,12 +46,11 @@ public interface APIService {
     @DELETE("/api/v1/kid")
     Call<UserResponse> removeKid(@Query("kidId") String kidId, @Header("Authorization") String auth);
 
+//    @PUT("/api/v1/kid/{email}&{kid_name}")
+//    Call<List<UserResponse>> updateKid(@Path("email") String email, @Body User user);
 
-
-    @PUT("/api/v1/kid/{email}&{kid_name}")
-    Call<List<UserResponse>> updateKid(@Path("email") String email, @Body User user);
-
-
+    @PUT("/api/v1/kid")
+    Call<UserResponse> updateKid(@Query("kidId") String email, @Body User user, @Header("Authorization") String auth);
 
     @PUT("/api/v1/points")
     Call<UserResponse> logout();

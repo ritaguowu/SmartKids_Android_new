@@ -80,6 +80,32 @@ public class KidViewModel {
             }
         });
     }
+    public void updateKidRemote(User kid){
+        APIService retrofitService = RetrofitClientInstance.getInstance().create(APIService.class);
+        String token = GlobalData.getInstance().getUser().getAccess_token();
+        String kidId = kid.getUser_id();
+        Call<UserResponse> call = retrofitService.updateKid(kidId, kid,"Bearer " + token);
+        call.enqueue(new Callback<UserResponse>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if (response.isSuccessful()){
+                    System.out.println("Update kid successfully");
+                    GlobalData.getInstance().getKids().forEach(System.out::println);
+
+                }else
+                {
+                    System.out.println("Update kid failed");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                System.out.println("System error");
+            }
+        });
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void insertKid(){
